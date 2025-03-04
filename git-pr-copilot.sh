@@ -9,15 +9,47 @@ RENAME_LIMIT=200
 # OPEN_AI_KEY=Cv271tgrnnqq5y42R5YbZFo23udE7Z2dOW7l2gVDvjjj71VDAVE4JQQJ99BCACYeBjFXJ3w3AAABACOGHRhy
 
 # DIVA MODEL 4-0
-# OPEN_AI_URL="https://ai-openai40diva816896743293.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2025-01-01-preview"
-# OPEN_AI_KEY=3kmfEDLcfnvpH4HWzOF95MVHbC5Xci8utkdE9fcAd6AJ5GVufSBrJQQJ99ALACHYHv6XJ3w3AAAAACOGxSVm
+OPEN_AI_URL="https://ai-openai40diva816896743293.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2025-01-01-preview"
+OPEN_AI_KEY=3kmfEDLcfnvpH4HWzOF95MVHbC5Xci8utkdE9fcAd6AJ5GVufSBrJQQJ99ALACHYHv6XJ3w3AAAAACOGxSVm
 
 # DIVA MODEL 3.5
-OPEN_AI_URL="https://ai-openai40diva816896743293.openai.azure.com/openai/deployments/gpt-35-turbo-16k/chat/completions?api-version=2025-01-01-preview"
-OPEN_AI_KEY=3kmfEDLcfnvpH4HWzOF95MVHbC5Xci8utkdE9fcAd6AJ5GVufSBrJQQJ99ALACHYHv6XJ3w3AAAAACOGxSVm
+# OPEN_AI_URL="https://ai-openai40diva816896743293.openai.azure.com/openai/deployments/gpt-35-turbo-16k/chat/completions?api-version=2025-01-01-preview"
+# OPEN_AI_KEY=3kmfEDLcfnvpH4HWzOF95MVHbC5Xci8utkdE9fcAd6AJ5GVufSBrJQQJ99ALACHYHv6XJ3w3AAAAACOGxSVm
 
 
 # git config --global diff.renameLimit $RENAME_LIMIT
+
+# Locate the script inside VS Code Spaces
+SCRIPT_PATH=$(find /workspaces -type f -name "git-pr-copilot.sh" 2>/dev/null | head -n 1)
+
+if [ -n "$SCRIPT_PATH" ]; then
+    echo "🔹 Configuring 'git pr-genie' alias..."
+
+    # Define the function to override 'git' command
+    GIT_FUNCTION='
+git() {
+    if [ "$1" = "pr-genie" ]; then
+        shift
+        bash "'"$SCRIPT_PATH"'" "$@"
+    else
+        command git "$@"
+    fi
+}'
+
+    # Add the function to ~/.bashrc if not already present
+    if ! grep -q "git() {" ~/.bashrc; then
+        echo "$GIT_FUNCTION" >> ~/.bashrc
+        echo "✅ 'git pr-genie' command added to ~/.bashrc"
+    else
+        echo "✅ 'git pr-genie' is already configured."
+    fi
+
+    # Source ~/.bashrc to apply changes immediately
+    source ~/.bashrc
+    echo "🔹 Run 'git pr-genie' to use your script!"
+else
+    echo "❌ Could not find git-pr-copilot.sh inside /workspaces."
+fi
 
 check_az_auth() {
     az account show &>/dev/null
