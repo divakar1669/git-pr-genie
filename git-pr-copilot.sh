@@ -51,6 +51,10 @@ else
     echo "❌ Could not find git-pr-copilot.sh inside /workspaces."
 fi
 
+touch .gitignore
+
+grep -qxF "git-pr-copilot.sh" .gitignore || echo "git-pr-copilot.sh" >> .gitignore
+
 check_az_auth() {
     az account show &>/dev/null
     return $?
