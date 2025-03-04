@@ -2,7 +2,7 @@ AZURE_ORG="office"
 AZURE_PROJECT="Office"
 REPO_NAME="1JS"
 TARGET_BRANCH="main"  
-RENAME_LIMIT=200
+RENAME_LIMIT=100
 
 # SHUBANSHU MODEL
 # OPEN_AI_URL="https://testaimodel11.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2025-01-01-preview"
@@ -17,24 +17,57 @@ OPEN_AI_KEY=3kmfEDLcfnvpH4HWzOF95MVHbC5Xci8utkdE9fcAd6AJ5GVufSBrJQQJ99ALACHYHv6X
 # OPEN_AI_KEY=3kmfEDLcfnvpH4HWzOF95MVHbC5Xci8utkdE9fcAd6AJ5GVufSBrJQQJ99ALACHYHv6XJ3w3AAAAACOGxSVm
 
 
-# git config --global diff.renameLimit $RENAME_LIMIT
 
 
 
-    # Define the function to override 'git' command
-    GIT_FUNCTION='
+
+check_changed_packages() {
+    local changed_packages=$(git diff --name-only main...HEAD | grep '/packages/' | cut -d'/' -f3 | sort -u)
+    local output=""
+
+    if [[ -n "$changed_packages" ]]; then
+        output+="📦 The following packages have changed:\n\n"
+
+        for package in $changed_packages; do
+            output+="  • $package\n"
+        done
+
+        output+="\n"
+        echo -e "$output"
+
+        read -p "Have you tested changes in all the above packages? (YES/NO): " response
+        output+="Have you tested changes in all the above packages? (YES/NO): $response\n"
+        output+="Response: $response\n"
+    else
+        output="No package changes detected."
+        echo "$output"
+    fi
+    captured_output="$output" 
+} 
+
+check_changed_packages
+
+git config --global diff.renameLimit $RENAME_LIMIT
+
+
+
+# Call the overridden echo function
 # Locate the script inside VS Code Spaces
-
 SCRIPT_PATH=$(find /workspaces -type f -name "git-pr-copilot.sh" 2>/dev/null | head -n 1)
 
 if [ -n "$SCRIPT_PATH" ]; then
+    echo "🔹 Configuring 'git pr-genie' alias..."
+
+    # Define the function to override 'git' command
+    GIT_FUNCTION='
+git() {
     if [ "$1" = "pr-genie" ]; then
-        bash "/workspaces/git-pr-copilot.sh" "$@"
+        shift
+        bash "'"$SCRIPT_PATH"'" "$@"
     else
         command git "$@"
     fi
-
-fi'
+}'
 
     # Add the function to ~/.bashrc if not already present
     if ! grep -q "git() {" ~/.bashrc; then
@@ -45,12 +78,11 @@ fi'
     fi
 
     # Source ~/.bashrc to apply changes immediately
-    source ~/.bashrc
-    echo "🔹 Run 'git pr-genie' to use your script!"
-
-touch .gitignore
-
-grep -qxF "git-pr-copilot.sh" .gitignore || echo "git-pr-copilot.sh" >> .gitignore
+    # source ~/.bashrc
+    # echo "🔹 Run 'git pr-genie' to use your script!"
+else
+    echo "❌ Could not find git-pr-copilot.sh inside /workspaces."
+fi
 
 check_az_auth() {
     az account show &>/dev/null
@@ -78,6 +110,7 @@ azure_login() {
 
         az version
         echo "🔹 Logging in to Azure CLI..."
+        az login
         echo "🔹 Logging in to Azure DevOps..."
 
         # 🔹 Method 1: Interactive Login (if you have Azure AD access)
@@ -112,9 +145,10 @@ COMMIT_MSGS=$(git log origin/$TARGET_BRANCH..HEAD --pretty=format:"%s" | tr '\n'
 SYSTEM_PROMPT="You are a helpful assistant that generates PR titles and descriptions.
 Make a robust PR_Description going through the commits and file diffs in detail , do not explicitly mention the File Changes and Commit Details, 
 Make the Description a human like one for me , not AI generated 
-Make all your description and answers in  bullet points making it sharp and concise for human readability , keep it small also , not many lines 
+Make all your description and answers in  bullet points making it sharp and concise for human readability 
+User captured Input :: $captured_output
 
-Q1. What problem does this address?d
+Q1. What problem does this address?
 
 Q2. How does it solve the problem?
 
@@ -166,11 +200,13 @@ PR_RESPONSE=$(curl -s -X POST $OPEN_AI_URL \
     -d "$JSON_PAYLOAD")
 
 
+# echo $PR_RESPONSE
+
 
 # Extract JSON content
 RAW_JSON=$(echo "$PR_RESPONSE" | jq -r '.choices[0].message.content')
 
-# Remove markdown-style code blocks if present
+# # Remove markdown-style code blocks if present
 if [[ "$RAW_JSON" == *'```json'* ]]; then
     JSON_CONTENT=$(echo "$RAW_JSON" | sed -n '/```json/,/```/p' | sed '1d;$d')
 else
@@ -196,7 +232,7 @@ if [[ -z "$PR_TITLE" || -z "$PR_DESCRIPTION" ]]; then
     exit 1
 fi
 
-# echo "PR RESPONSE :: $Description_Template"
+echo "PR RESPONSE :: $Description_Template"
 
 
 # Store the template as a variable
@@ -239,7 +275,7 @@ For guidance on creating good PRs, see
 "
 
 
-echo -e "PR_TITLE:: $PR_TITLE"
+echo -e "PR_TITLE : $PR_TITLE"
 # echo -e "\n\n PR_DESCRIPTION:: $Description_Template"
 
 PR_URL=$(az repos pr create \
