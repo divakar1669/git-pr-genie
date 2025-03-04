@@ -19,22 +19,24 @@ OPEN_AI_KEY=3kmfEDLcfnvpH4HWzOF95MVHbC5Xci8utkdE9fcAd6AJ5GVufSBrJQQJ99ALACHYHv6X
 
 # git config --global diff.renameLimit $RENAME_LIMIT
 
-# Locate the script inside VS Code Spaces
-# SCRIPT_PATH=$(find / -type f -name "git-pr-copilot.sh" 2>/dev/null | grep -v "/proc/" | head -n 1)
 
-if [ -n "$SCRIPT_PATH" ]; then
-    echo "🔹 Configuring 'git pr-genie' alias..."
 
     # Define the function to override 'git' command
     GIT_FUNCTION='
-git() {
-    if [ "$1" = "pr-genie" ]; then
-        shift
-        bash "'"$SCRIPT_PATH"'" "$@"
-    else
-        command git "$@"
-    fi
-}'
+# Locate the script inside VS Code Spaces
+
+SCRIPT_PATH=$(find /workspaces -type f -name "git-pr-copilot.sh" 2>/dev/null | head -n 1)
+
+if [ -n "$SCRIPT_PATH" ]; then
+    git() {
+        if [ "$1" = "pr-genie" ]; then
+            shift
+            bash "$SCRIPT_PATH" "$@"
+        else
+            command git "$@"
+        fi
+    }
+fi'
 
     # Add the function to ~/.bashrc if not already present
     if ! grep -q "git() {" ~/.bashrc; then
