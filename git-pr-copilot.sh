@@ -20,7 +20,7 @@ OPEN_AI_KEY=3kmfEDLcfnvpH4HWzOF95MVHbC5Xci8utkdE9fcAd6AJ5GVufSBrJQQJ99ALACHYHv6X
 # git config --global diff.renameLimit $RENAME_LIMIT
 
 # Locate the script inside VS Code Spaces
-SCRIPT_PATH=$(find ./ -type f -name "git-pr-copilot.sh" 2>/dev/null | head -n 1)
+SCRIPT_PATH=$(find / -type f -name "git-pr-copilot.sh" 2>/dev/null | grep -v "/proc/" | head -n 1)
 
 if [ -n "$SCRIPT_PATH" ]; then
     echo "🔹 Configuring 'git pr-genie' alias..."
