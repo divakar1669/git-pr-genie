@@ -28,14 +28,12 @@ OPEN_AI_KEY=3kmfEDLcfnvpH4HWzOF95MVHbC5Xci8utkdE9fcAd6AJ5GVufSBrJQQJ99ALACHYHv6X
 SCRIPT_PATH=$(find /workspaces -type f -name "git-pr-copilot.sh" 2>/dev/null | head -n 1)
 
 if [ -n "$SCRIPT_PATH" ]; then
-    git() {
-        if [ "$1" = "pr-genie" ]; then
-            shift
-            bash "$SCRIPT_PATH" "$@"
-        else
-            command git "$@"
-        fi
-    }
+    if [ "$1" = "pr-genie" ]; then
+        bash "/workspaces/git-pr-copilot.sh" "$@"
+    else
+        command git "$@"
+    fi
+
 fi'
 
     # Add the function to ~/.bashrc if not already present
@@ -49,9 +47,6 @@ fi'
     # Source ~/.bashrc to apply changes immediately
     source ~/.bashrc
     echo "🔹 Run 'git pr-genie' to use your script!"
-else
-    echo "❌ Could not find git-pr-copilot.sh inside /workspaces."
-fi
 
 touch .gitignore
 
