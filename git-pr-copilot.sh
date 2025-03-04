@@ -5,21 +5,30 @@ TARGET_BRANCH="main"
 RENAME_LIMIT=100
 
 # SHUBANSHU MODEL
-# OPEN_AI_URL="https://testaimodel11.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2025-01-01-preview"
-# OPEN_AI_KEY=Cv271tgrnnqq5y42R5YbZFo23udE7Z2dOW7l2gVDvjjj71VDAVE4JQQJ99BCACYeBjFXJ3w3AAABACOGHRhy
+OPEN_AI_URL="https://testaimodel11.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2025-01-01-preview"
+OPEN_AI_KEY=Cv271tgrnnqq5y42R5YbZFo23udE7Z2dOW7l2gVDvjjj71VDAVE4JQQJ99BCACYeBjFXJ3w3AAABACOGHRhy
 
 # DIVA MODEL 4-0
-OPEN_AI_URL="https://ai-openai40diva816896743293.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2025-01-01-preview"
-OPEN_AI_KEY=3kmfEDLcfnvpH4HWzOF95MVHbC5Xci8utkdE9fcAd6AJ5GVufSBrJQQJ99ALACHYHv6XJ3w3AAAAACOGxSVm
+# OPEN_AI_URL="https://ai-openai40diva816896743293.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2025-01-01-preview"
+# OPEN_AI_KEY=3kmfEDLcfnvpH4HWzOF95MVHbC5Xci8utkdE9fcAd6AJ5GVufSBrJQQJ99ALACHYHv6XJ3w3AAAAACOGxSVm
 
 # DIVA MODEL 3.5
 # OPEN_AI_URL="https://ai-openai40diva816896743293.openai.azure.com/openai/deployments/gpt-35-turbo-16k/chat/completions?api-version=2025-01-01-preview"
 # OPEN_AI_KEY=3kmfEDLcfnvpH4HWzOF95MVHbC5Xci8utkdE9fcAd6AJ5GVufSBrJQQJ99ALACHYHv6XJ3w3AAAAACOGxSVm
 
 
+# echo() {
+#     local color="\e[32m"  # Change this to Red: \e[31m, Blue: \e[34m, etc.
+#     local reset="\e[0m"
 
-
-
+#     while IFS= read -r line; do
+#         for word in $line; do
+#             printf "${color}%s ${reset}" "$word"
+#             sleep 0.3  # Adjust speed here
+#         done
+#         printf "\n"
+#     done
+# }
 
 check_changed_packages() {
     local changed_packages=$(git diff --name-only main...HEAD | grep '/packages/' | cut -d'/' -f3 | sort -u)
@@ -47,11 +56,8 @@ check_changed_packages() {
 
 check_changed_packages
 
-git config --global diff.renameLimit $RENAME_LIMIT
+# git config --global diff.renameLimit $RENAME_LIMIT
 
-
-
-# Call the overridden echo function
 # Locate the script inside VS Code Spaces
 SCRIPT_PATH=$(find /workspaces -type f -name "git-pr-copilot.sh" 2>/dev/null | head -n 1)
 
@@ -133,7 +139,7 @@ azure_login() {
 azure_login
 
 
-az config set extension.dynamic_install_allow_preview=true
+# az config set extension.dynamic_install_allow_preview=true
 
 
 SOURCE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
