@@ -112,9 +112,9 @@ COMMIT_MSGS=$(git log origin/$TARGET_BRANCH..HEAD --pretty=format:"%s" | tr '\n'
 SYSTEM_PROMPT="You are a helpful assistant that generates PR titles and descriptions.
 Make a robust PR_Description going through the commits and file diffs in detail , do not explicitly mention the File Changes and Commit Details, 
 Make the Description a human like one for me , not AI generated 
-Make all your description and answers in  bullet points making it sharp and concise for human readability 
+Make all your description and answers in  bullet points making it sharp and concise for human readability , keep it small also , not many lines 
 
-Q1. What problem does this address?
+Q1. What problem does this address?d
 
 Q2. How does it solve the problem?
 
