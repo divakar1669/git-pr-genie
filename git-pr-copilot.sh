@@ -84,7 +84,7 @@ git() {
     fi
 
     # Source ~/.bashrc to apply changes immediately
-    # source ~/.bashrc
+    source ~/.bashrc
     # echo "🔹 Run 'git pr-genie' to use your script!"
 else
     echo "❌ Could not find git-pr-copilot.sh inside /workspaces."
