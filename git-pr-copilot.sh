@@ -123,6 +123,8 @@ azure_login() {
         # 🔹 Method 1: Interactive Login (if you have Azure AD access)
         az login --use-device-code
         az account set --subscription "$(az account show --query id --output tsv)"
+        az config set extension.dynamic_install_allow_preview=true
+        az config set extension.use_dynamic_install=yes_without_prompt
 
         # 🔹 Method 2: PAT-based Login (Uncomment below for automation)
         # export AZURE_DEVOPS_EXT_PAT="your_personal_access_token"
@@ -138,9 +140,6 @@ azure_login() {
 }
 
 azure_login
-
-
-az config set extension.dynamic_install_allow_preview=true
 
 
 SOURCE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
