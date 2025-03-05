@@ -316,4 +316,5 @@ CREATE_PR(){
 
 azure_login
 git_init_pr_genie
-CREATE_PR
+# commenting only for the use when some one runs git pr-genie
+# CREATE_PR
