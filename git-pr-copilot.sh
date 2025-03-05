@@ -61,7 +61,6 @@ git_init_pr_genie() {
     if [ -n "$SCRIPT_PATH" ]; then
         echo "🔹 Configuring 'git pr-genie' alias..."
 
-        # Define the function to override 'git' command
         GIT_FUNCTION='
 git() {
     if [ "$1" = "pr-genie" ]; then
@@ -153,7 +152,7 @@ CREATE_PR(){
     check_changed_packages
 
     git config --global diff.renameLimit $RENAME_LIMIT
-    azure_login
+    # azure_login
 
     SOURCE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
     GIT_DIFF=$(git diff --stat origin/$TARGET_BRANCH | head -n $RENAME_LIMIT)
