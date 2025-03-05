@@ -56,10 +56,10 @@ check_changed_packages() {
 
 check_changed_packages
 
-# git config --global diff.renameLimit $RENAME_LIMIT
+git config --global diff.renameLimit $RENAME_LIMIT
 
 # Locate the script inside VS Code Spaces
-SCRIPT_PATH=$(find /workspaces -type f -name "git-pr-copilot.sh" 2>/dev/null | head -n 1)
+SCRIPT_PATH=$(find / -type f -name "git-pr-copilot.sh" 2>/dev/null | head -n 1)
 
 if [ -n "$SCRIPT_PATH" ]; then
     echo "🔹 Configuring 'git pr-genie' alias..."
@@ -116,8 +116,9 @@ azure_login() {
 
         az version
         echo "🔹 Logging in to Azure CLI..."
-        az login
-        echo "🔹 Logging in to Azure DevOps..."
+        
+        # az login
+        # echo "🔹 Logging in to Azure DevOps..."
 
         # 🔹 Method 1: Interactive Login (if you have Azure AD access)
         az login --use-device-code
@@ -139,7 +140,7 @@ azure_login() {
 azure_login
 
 
-# az config set extension.dynamic_install_allow_preview=true
+az config set extension.dynamic_install_allow_preview=true
 
 
 SOURCE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
@@ -238,8 +239,6 @@ if [[ -z "$PR_TITLE" || -z "$PR_DESCRIPTION" ]]; then
     exit 1
 fi
 
-echo "PR RESPONSE :: $Description_Template"
-
 
 # Store the template as a variable
 Description_Template="
@@ -283,6 +282,7 @@ For guidance on creating good PRs, see
 
 echo -e "PR_TITLE : $PR_TITLE"
 # echo -e "\n\n PR_DESCRIPTION:: $Description_Template"
+# echo " PR_DESCRIPTION :: $Description_Template"
 
 PR_URL=$(az repos pr create \
     --org "https://dev.azure.com/$AZURE_ORG" \
