@@ -5,12 +5,12 @@ TARGET_BRANCH="main"
 RENAME_LIMIT=100
 
 # SHUBANSHU MODEL
-OPEN_AI_URL="https://testaimodel11.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2025-01-01-preview"
-OPEN_AI_KEY=Cv271tgrnnqq5y42R5YbZFo23udE7Z2dOW7l2gVDvjjj71VDAVE4JQQJ99BCACYeBjFXJ3w3AAABACOGHRhy
+# OPEN_AI_URL="https://testaimodel11.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2025-01-01-preview"
+# OPEN_AI_KEY=Cv271tgrnnqq5y42R5YbZFo23udE7Z2dOW7l2gVDvjjj71VDAVE4JQQJ99BCACYeBjFXJ3w3AAABACOGHRhy
 
 # DIVA MODEL 4-0
-# OPEN_AI_URL="https://ai-openai40diva816896743293.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2025-01-01-preview"
-# OPEN_AI_KEY=3kmfEDLcfnvpH4HWzOF95MVHbC5Xci8utkdE9fcAd6AJ5GVufSBrJQQJ99ALACHYHv6XJ3w3AAAAACOGxSVm
+OPEN_AI_URL="https://ai-openai40diva816896743293.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2025-01-01-preview"
+OPEN_AI_KEY=3kmfEDLcfnvpH4HWzOF95MVHbC5Xci8utkdE9fcAd6AJ5GVufSBrJQQJ99ALACHYHv6XJ3w3AAAAACOGxSVm
 
 # DIVA MODEL 3.5
 # OPEN_AI_URL="https://ai-openai40diva816896743293.openai.azure.com/openai/deployments/gpt-35-turbo-16k/chat/completions?api-version=2025-01-01-preview"
