@@ -24,7 +24,10 @@ curl -sL https://raw.githubusercontent.com/divakar1669/git-pr-genie/main/git-pr-
 
 🛠️ How It Works:
 
-* ✨ Once installed, execute ``` git pr-genie ``` in your terminal. 💻
+* ✨ Once installed, execute
+* ```sh
+* git pr-genie
+* ``` in your terminal. 💻
 * 🧞‍♂️ Genie will then automatically generate and submit a Pull Request for you. 🚀
 
 📜 **License**
