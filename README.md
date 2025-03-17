@@ -1,35 +1,38 @@
-# 🚀 Git PR Copilot  
+# 🚀 PR gENIE 
 
 **Git PR Copilot** 🛠️ is a CLI tool that simplifies your pull request workflow.  
 
 ## ⚡ Quick Start  
 
-Run this command to set it up instantly:  
+Run this command to set it up instantly in your code spaces :  
 
 ```sh
 curl -sL https://raw.githubusercontent.com/divakar1669/git-pr-genie/main/git-pr-copilot.sh -o /workspaces/git-pr-copilot.sh && chmod +x /workspaces/git-pr-copilot.sh && /workspaces/git-pr-copilot.sh
 ```
 
 
-✅ Features
-✅ Downloads git-pr-copilot.sh 📥
-✅ Grants execution permission 🔐
-✅ Runs the script to automate PR creation 🚀
-📌 Requirements
-✔️ Git installed 🖥️
-✔️ A configured GitHub repository 🔗
-🛠️ How It Works
-The script fetches the latest version of git-pr-copilot.sh 📜
-It makes the script executable 🔓
-It runs the script to help you create a pull request effortlessly 🤖
-📜 License
-📝 This project is licensed under the MIT License.
+✅ **Features**
 
-🤝 Contributing
-Got ideas or improvements? Feel free to submit a PR! 🙌
+* 📥 Auto-downloads `git-pr-copilot.sh`
+* 🔐 Grants execution permissions
+* 🚀 Automates PR creation in Azure Devops using AI
 
-Save this as `README.md` in your repository. Let me know if you need any tweaks! 🚀
+📌 **Requirements**
 
+* 🖥️ Git installed
+* 🔗 A configured GitHub repository
+
+🛠️ How It Works:
+
+✨ Once installed, execute ```sh git pr-genie ``` in your terminal. 💻
+🧞‍♂️ Genie will then automatically generate and submit a Pull Request for you. 🚀
+
+📜 **License**
+This project is licensed under the MIT License.
+
+🤝 **Contributing**
+
+Got ideas for improvements? Feel free to submit a Pull Request! 🙌
 
 
 
