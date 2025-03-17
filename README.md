@@ -13,7 +13,7 @@ curl -sL https://raw.githubusercontent.com/divakar1669/git-pr-genie/main/git-pr-
 
 ✅ **Features**
 
-* 📥 Auto-downloads `git-pr-copilot.sh`
+* 📥 Auto-downloads required files 
 * 🔐 Grants execution permissions
 * 🚀 Automates PR creation in Azure Devops using AI
 
@@ -24,8 +24,8 @@ curl -sL https://raw.githubusercontent.com/divakar1669/git-pr-genie/main/git-pr-
 
 🛠️ How It Works:
 
-✨ Once installed, execute ``` git pr-genie ``` in your terminal. 💻
-🧞‍♂️ Genie will then automatically generate and submit a Pull Request for you. 🚀
+* ✨ Once installed, execute ``` git pr-genie ``` in your terminal. 💻
+* 🧞‍♂️ Genie will then automatically generate and submit a Pull Request for you. 🚀
 
 📜 **License**
 This project is licensed under the MIT License.
