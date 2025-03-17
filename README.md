@@ -25,7 +25,7 @@ curl -sL https://raw.githubusercontent.com/divakar1669/git-pr-genie/main/git-pr-
 🛠️ How It Works:
 
 * ✨ Once installed, execute
-* ```sh
+  ```sh
   git pr-genie
   ```
   in your terminal. 💻
