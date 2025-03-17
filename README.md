@@ -1,4 +1,4 @@
-# 🚀 PR gENIE 
+# 🚀 PR Genie 
 
 **Git PR Copilot** 🛠️ is a CLI tool that simplifies your pull request workflow.  
 
